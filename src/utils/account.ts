@@ -1,5 +1,5 @@
 import type { AccountInfo } from "@azure/msal-browser";
-import { assert } from "vitest";
+import { assert } from "./assert";
 import { pick } from "./object";
 
 export const isAccountTokenExpired = (account: AccountInfo) => {
