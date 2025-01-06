@@ -13,6 +13,8 @@ describe("index", () => {
         "MicrosoftIcon",
         "isAccountTokenExpired",
         "pickAccountInfo",
+        "MsalProvider",
+        "useMsal",
       ]
     `);
   });
