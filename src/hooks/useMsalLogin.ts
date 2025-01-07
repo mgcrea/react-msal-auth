@@ -4,17 +4,17 @@ import type { AccountInfo, PopupRequest } from "@azure/msal-browser";
 import { useMsal } from "@azure/msal-react";
 import { useCallback, useEffect } from "react";
 import { assert, isAccountTokenExpired } from "src/utils";
-import { useMicrosoftSilentRefreshToken } from "./useMicrosoftSilentRefreshToken";
+import { useMsalAcquireToken } from "./useMsalAcquireToken";
 
-export type UseMicrosoftLoginOptions = Pick<PopupRequest, "loginHint" | "domainHint"> & {
+export type UseMsalLoginOptions = Pick<PopupRequest, "loginHint" | "domainHint"> & {
   autoLogin?: boolean;
   onLogin?: (account: AccountInfo) => void | Promise<void>;
   scopes: string[];
 };
 
-export const useMicrosoftLogin = ({ autoLogin, onLogin, scopes, ...request }: UseMicrosoftLoginOptions) => {
+export const useMsalLogin = ({ autoLogin, onLogin, scopes, ...request }: UseMsalLoginOptions) => {
   const { instance: msalInstance } = useMsal();
-  const refreshToken = useMicrosoftSilentRefreshToken(scopes);
+  const acquireToken = useMsalAcquireToken(scopes);
 
   // Automatically login the user if they have an active account and have not logged out
   useEffect(() => {
@@ -27,7 +27,7 @@ export const useMicrosoftLogin = ({ autoLogin, onLogin, scopes, ...request }: Us
       let idToken: string = account.idToken;
       if (isAccountTokenExpired(account)) {
         console.warn("idToken is expired");
-        idToken = await refreshToken(account);
+        idToken = await acquireToken(account);
       }
       if (autoLogin && onLogin) {
         await onLogin({ ...account, idToken });

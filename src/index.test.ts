@@ -8,13 +8,16 @@ describe("index", () => {
       [
         "msalConfigDefaults",
         "createMsalInstance",
-        "useMicrosoftLogin",
-        "useMicrosoftSilentRefreshToken",
+        "useMsalAcquireToken",
+        "useMsalLogin",
         "MicrosoftIcon",
         "isAccountTokenExpired",
         "pickAccountInfo",
         "MsalProvider",
+        "useAccount",
+        "useIsAuthenticated",
         "useMsal",
+        "useMsalAuthentication",
       ]
     `);
   });

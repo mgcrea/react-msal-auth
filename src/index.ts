@@ -4,4 +4,10 @@ export * from "./icons";
 export * from "./utils/account";
 
 export type { Configuration } from "@azure/msal-browser";
-export { MsalProvider, useMsal } from "@azure/msal-react";
+export {
+  MsalProvider,
+  useAccount,
+  useIsAuthenticated,
+  useMsal,
+  useMsalAuthentication,
+} from "@azure/msal-react";

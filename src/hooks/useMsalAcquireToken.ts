@@ -3,8 +3,11 @@ import { useMsalAuthentication } from "@azure/msal-react";
 import { useCallback } from "react";
 import { assert, pick } from "src/utils";
 
-export const useMicrosoftSilentRefreshToken = (scopes: string[]) => {
-  const { acquireToken } = useMsalAuthentication(InteractionType.Silent, { scopes });
+export const useMsalAcquireToken = (
+  scopes: string[],
+  interactionType: InteractionType = InteractionType.Silent,
+) => {
+  const { acquireToken } = useMsalAuthentication(interactionType, { scopes });
   return useCallback(
     async (account: AccountInfo) => {
       const accountInfo = pick(account, [
@@ -14,13 +17,13 @@ export const useMicrosoftSilentRefreshToken = (scopes: string[]) => {
         "username",
         "localAccountId",
       ]);
-      const res = await acquireToken(InteractionType.Silent, {
+      const res = await acquireToken(interactionType, {
         account: accountInfo,
         scopes,
       });
       assert(res && res.idToken, "No idToken found in acquireToken response");
       return res.idToken;
     },
-    [acquireToken, scopes],
+    [acquireToken, interactionType, scopes],
   );
 };

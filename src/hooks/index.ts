@@ -1,2 +1,2 @@
-export * from "./useMicrosoftLogin";
-export * from "./useMicrosoftSilentRefreshToken";
+export * from "./useMsalAcquireToken";
+export * from "./useMsalLogin";
