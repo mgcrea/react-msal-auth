@@ -6,7 +6,7 @@ describe("index", () => {
     const exportedKeys = Object.keys(module);
     expect(exportedKeys).toMatchInlineSnapshot(`
       [
-        "msalConfigDefaults",
+        "msalConfigDefaultsFactory",
         "createMsalInstance",
         "useMsalAcquireToken",
         "useMsalLogin",

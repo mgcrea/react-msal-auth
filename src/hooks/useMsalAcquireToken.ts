@@ -1,13 +1,13 @@
 import { InteractionType, type AccountInfo } from "@azure/msal-browser";
-import { useMsalAuthentication } from "@azure/msal-react";
+import { useMsal } from "@azure/msal-react";
 import { useCallback } from "react";
-import { assert, pick } from "src/utils";
+import { assert, pick } from "../utils";
 
 export const useMsalAcquireToken = (
   scopes: string[],
   interactionType: InteractionType = InteractionType.Silent,
 ) => {
-  const { acquireToken } = useMsalAuthentication(interactionType, { scopes });
+  const acquireToken = useAcquireToken(interactionType);
   return useCallback(
     async (account: AccountInfo) => {
       const accountInfo = pick(account, [
@@ -17,13 +17,26 @@ export const useMsalAcquireToken = (
         "username",
         "localAccountId",
       ]);
-      const res = await acquireToken(interactionType, {
+      const res = await acquireToken({
         account: accountInfo,
         scopes,
       });
       assert(res && res.idToken, "No idToken found in acquireToken response");
       return res.idToken;
     },
-    [acquireToken, interactionType, scopes],
+    [acquireToken, scopes],
   );
+};
+
+const useAcquireToken = (interactionType: InteractionType = InteractionType.Silent) => {
+  const { instance: msalInstance } = useMsal();
+  switch (interactionType) {
+    case InteractionType.Popup:
+      return msalInstance.acquireTokenPopup.bind(msalInstance);
+    case InteractionType.Redirect:
+      return msalInstance.acquireTokenRedirect.bind(msalInstance);
+    case InteractionType.Silent:
+    default:
+      return msalInstance.acquireTokenSilent.bind(msalInstance);
+  }
 };

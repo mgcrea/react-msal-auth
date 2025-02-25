@@ -3,7 +3,7 @@
 import type { AccountInfo, PopupRequest } from "@azure/msal-browser";
 import { useMsal } from "@azure/msal-react";
 import { useCallback, useEffect } from "react";
-import { assert, isAccountTokenExpired } from "src/utils";
+import { assert, isAccountTokenExpired } from "../utils";
 import { useMsalAcquireToken } from "./useMsalAcquireToken";
 
 export type UseMsalLoginOptions = Pick<PopupRequest, "loginHint" | "domainHint"> & {

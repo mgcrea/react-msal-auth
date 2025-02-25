@@ -19,6 +19,7 @@
     "start": "vitest --run",
     "dev": "vitest --watch",
     "build": "tsup",
+    "build:watch": "tsup --watch",
     "prettify": "prettier --write src/ test/",
     "lint": "eslint .",
     "prettycheck": "prettier --check src/ test/",
