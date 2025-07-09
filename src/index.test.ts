@@ -6,18 +6,18 @@ describe("index", () => {
     const exportedKeys = Object.keys(module);
     expect(exportedKeys).toMatchInlineSnapshot(`
       [
-        "msalConfigDefaultsFactory",
-        "createMsalInstance",
-        "useMsalAcquireToken",
-        "useMsalLogin",
         "MicrosoftIcon",
-        "isAccountTokenExpired",
-        "pickAccountInfo",
         "MsalProvider",
+        "createMsalInstance",
+        "isAccountTokenExpired",
+        "msalConfigDefaultsFactory",
+        "pickAccountInfo",
         "useAccount",
         "useIsAuthenticated",
         "useMsal",
+        "useMsalAcquireToken",
         "useMsalAuthentication",
+        "useMsalLogin",
       ]
     `);
   });
